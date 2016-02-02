@@ -2,20 +2,28 @@ defmodule KappaMetrics.Mixfile do
   use Mix.Project
 
   def project do
-    [app: :kappa_metrics,
-     version: "0.0.1",
-     elixir: "~> 1.2",
-     build_embedded: Mix.env == :prod,
-     start_permanent: Mix.env == :prod,
-     deps: deps]
+    [
+      app: :kappa_metrics,
+      version: "0.0.1",
+      elixir: "~> 1.2",
+      build_embedded: Mix.env == :prod,
+      start_permanent: Mix.env == :prod,
+      deps: deps
+    ]
   end
 
   # Configuration for the OTP application
   #
   # Type "mix help compile.app" for more information
   def application do
-    [applications: [:logger],
-     mod: {KappaMetrics, []}]
+    [
+      applications: [
+        :logger,
+        :exconstructor,
+        :httpoison
+      ],
+      mod: {KappaMetrics, []}
+    ]
   end
 
   # Dependencies can be Hex packages:
@@ -28,6 +36,10 @@ defmodule KappaMetrics.Mixfile do
   #
   # Type "mix help deps" for more examples and options
   defp deps do
-    []
+    [
+      {:exconstructor, "~> 0.2.0"},
+      {:httpoison,     "~> 0.8.0"},
+      {:poison,        "~> 2.0"}
+    ]
   end
 end
