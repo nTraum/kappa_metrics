@@ -1,5 +1,7 @@
 # KappaMetrics
 
+[![Build Status](https://travis-ci.org/nTraum/kappa_metrics.svg?branch=master)](https://travis-ci.org/nTraum/kappa_metrics)
+
 **TODO: Add description**
 
 ## Installation
