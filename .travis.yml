@@ -6,4 +6,7 @@ elixir:
 otp_release:
   - 18.0
 
-script: mix coveralls
+env:
+  - MIX_ENV=test
+
+script: mix coveralls.travis
