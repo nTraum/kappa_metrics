@@ -1,6 +1,7 @@
 # KappaMetrics
 
 [![Build Status](https://travis-ci.org/nTraum/kappa_metrics.svg?branch=master)](https://travis-ci.org/nTraum/kappa_metrics)
+[![Coverage Status](https://coveralls.io/repos/github/nTraum/kappa_metrics/badge.svg?branch=master)](https://coveralls.io/github/nTraum/kappa_metrics?branch=master)
 
 **TODO: Add description**
 
