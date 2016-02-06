@@ -7,8 +7,6 @@ defmodule KappaMetrics.Measurements.Stream do
             viewers:      nil,
             average_fps:  nil
 
-  use ExConstructor
-
   def fetch_from_api(name) do
     response = KappaMetrics.Rest.Streams.get!(name)
 
