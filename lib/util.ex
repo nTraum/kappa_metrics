@@ -1,10 +1,12 @@
 defmodule KappaMetrics.Util do
   @moduledoc """
-  Generic utility methods.
+  Module for generic utility & helper functions.
   """
 
   @doc """
-  Transforms & filters a map with string keys based on list of atom keys.
+  Converts a map with string keys to atom keys and filters them based on a list of atoms.
+
+  Returns a map.
 
   ## Examples
       iex> KappaMetrics.Util.filter_with_atoms(%{"foo" => 1, "bar" => 2, "baz" => 3}, [:foo, :bar])

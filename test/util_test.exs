@@ -10,13 +10,13 @@ defmodule KappaMetrics.UtilTest do
     assert Util.filter_with_atoms(map, keys) == %{foo: "bar"}
   end
 
-  test "filtering other keys" do
+  test "filtering out other keys" do
     map  = %{"foo" => "bar", "baz" => "buz"}
     keys = [:foo]
     assert Util.filter_with_atoms(map, keys) == %{foo: "bar"}
   end
 
-  test "empty arguments" do
+  test "works with empty data structures" do
     map = %{}
     keys = []
     assert map_size(Util.filter_with_atoms(map, keys)) == 0
