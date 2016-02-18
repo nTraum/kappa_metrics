@@ -2,6 +2,12 @@
 # and its dependencies with the aid of the Mix.Config module.
 use Mix.Config
 
+config :kappa_metrics, KappaMetrics.InfluxDb,
+  hosts:  [ "localhost" ],
+  pool:   [ max_overflow: 0, size: 1 ],
+  port:   8086,
+  scheme: "http",
+  writer: Instream.Writer.Line
 # This configuration is loaded before any dependency and is restricted
 # to this project. If another project depends on this project, this
 # file won't be loaded nor affect the parent project. For this reason,

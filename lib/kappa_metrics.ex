@@ -6,9 +6,10 @@ defmodule KappaMetrics do
   def start(_type, _args) do
     import Supervisor.Spec, warn: false
 
+    Supervisor.start_link([KappaMetrics.InfluxDb.child_spec], strategy: :one_for_one)
+
     children = [
-      # Define workers and child supervisors to be supervised
-      # worker(KappaMetrics.Worker, [arg1, arg2, arg3]),
+      supervisor(KappaMetrics.ApiPoller.Supervisor, [])
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html

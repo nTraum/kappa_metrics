@@ -20,8 +20,9 @@ defmodule KappaMetrics.Mixfile do
   def application do
     [
       applications: [
-        :logger,
-        :httpoison
+        :httpoison,
+        :instream,
+        :logger
       ],
       mod: {KappaMetrics, []}
     ]
@@ -38,9 +39,13 @@ defmodule KappaMetrics.Mixfile do
   # Type "mix help deps" for more examples and options
   defp deps do
     [
-      {:httpoison,     "~> 0.8.0"},
-      {:poison,        "~> 2.0"},
-      {:excoveralls, "~> 0.4", only: :test}
+      {:httpoison, "~> 0.8.0"},
+      {:instream,  "~> 0.9"},
+      {:poison,    "~> 1.4.0"},
+      {:exrm,      "~> 1.0.0-rc8"},
+
+      {:excoveralls, "~> 0.4", only: :test},
+      {:credo,       "~> 0.3", only: [:dev, :test]}
     ]
   end
 end
