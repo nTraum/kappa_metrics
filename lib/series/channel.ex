@@ -32,11 +32,11 @@ defmodule KappaMetrics.Series.Channel do
     tags   = Util.filter_with_atoms(data, [:name, :game, :status])
 
     point = %KappaMetrics.Series.Channel{}
-    point = %{ point | fields: %{ point.fields | followers: Map.fetch!(fields, :followers) } }
-    point = %{ point | fields: %{ point.fields | views: Map.fetch!(fields, :views) } }
+    point = %{ point | fields: %{ point.fields | followers: fields[:followers] } }
+    point = %{ point | fields: %{ point.fields | views: fields[:views] } }
 
-    point = %{ point | tags: %{ point.tags | name: Map.fetch!(tags, :name) } }
-    point = %{ point | tags: %{ point.tags | game: Map.fetch!(tags, :game) } }
-    %{ point | tags: %{ point.tags | status: Map.fetch!(tags, :status) } }
+    point = %{ point | tags: %{ point.tags | name: tags[:name] } }
+    point = %{ point | tags: %{ point.tags | game: tags[:game] } }
+    %{ point | tags: %{ point.tags | status: tags[:status] } }
   end
 end

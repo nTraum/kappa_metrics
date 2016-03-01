@@ -35,13 +35,13 @@ defmodule KappaMetrics.Series.Stream do
     tags   = Util.filter_with_atoms(data, [:name, :game])
 
     point = %KappaMetrics.Series.Stream{}
-    point = %{ point | fields: %{ point.fields | online: Map.fetch!(fields, :online) } }
-    point = %{ point | fields: %{ point.fields | delay: Map.fetch!(fields, :delay) } }
-    point = %{ point | fields: %{ point.fields | video_height: Map.fetch!(fields, :video_height) } }
-    point = %{ point | fields: %{ point.fields | viewers: Map.fetch!(fields, :viewers) } }
-    point = %{ point | fields: %{ point.fields | average_fps: Map.fetch!(fields, :average_fps) } }
+    point = %{ point | fields: %{ point.fields | online: fields[:online] } }
+    point = %{ point | fields: %{ point.fields | delay: fields[:delay] } }
+    point = %{ point | fields: %{ point.fields | video_height: fields[:video_height] } }
+    point = %{ point | fields: %{ point.fields | viewers: fields[:viewers] } }
+    point = %{ point | fields: %{ point.fields | average_fps: fields[:average_fps] } }
 
-    point = %{ point | tags: %{ point.tags | name: Map.fetch!(tags, :name) } }
-    %{ point | tags: %{ point.tags | game: Map.fetch!(tags, :game) } }
+    point = %{ point | tags: %{ point.tags | name: tags[:name] } }
+    %{ point | tags: %{ point.tags | game: tags[:game] } }
   end
 end
