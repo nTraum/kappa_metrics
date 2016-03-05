@@ -2,13 +2,11 @@ defmodule KappaMetrics.Series.Stream do
   use Instream.Series
 
   alias KappaMetrics.Util
-  alias KappaMetrics.InfluxDb
 
   series do
     database    "kappa_metrics"
     measurement "streams"
 
-    field       :online
     field       :delay
     field       :video_height
     field       :viewers
@@ -18,30 +16,24 @@ defmodule KappaMetrics.Series.Stream do
     tag         :game
   end
 
-  def write(name) do
-    name
-    |> fetch_data
-    |> create_measurement
-    |> InfluxDb.write
+  def new(response, name) do
+    fields = Util.filter_with_atoms(response, [:delay, :video_height, :viewers, :average_fps]) |> ensure_float
+    tags   = Util.filter_with_atoms(response, [:game])
+
+    measurement = %KappaMetrics.Series.Stream{}
+    measurement = %{ measurement | fields: %{ measurement.fields | delay: fields[:delay] } }
+    measurement = %{ measurement | fields: %{ measurement.fields | video_height: fields[:video_height] } }
+    measurement = %{ measurement | fields: %{ measurement.fields | viewers: fields[:viewers] } }
+    measurement = %{ measurement | fields: %{ measurement.fields | average_fps: fields[:average_fps] } }
+
+    measurement = %{ measurement | tags: %{ measurement.tags | name: name } }
+    %{ measurement | tags: %{ measurement.tags | game: tags[:game] } }
   end
 
-  def fetch_data(name) do
-    response = KappaMetrics.Rest.Streams.get!(name)
-    response.body |> Map.put("name", name)
-  end
-
-  def create_measurement(data) do
-    fields = Util.filter_with_atoms(data, [:online, :delay, :video_height, :viewers, :average_fps])
-    tags   = Util.filter_with_atoms(data, [:name, :game])
-
-    point = %KappaMetrics.Series.Stream{}
-    point = %{ point | fields: %{ point.fields | online: fields[:online] } }
-    point = %{ point | fields: %{ point.fields | delay: fields[:delay] } }
-    point = %{ point | fields: %{ point.fields | video_height: fields[:video_height] } }
-    point = %{ point | fields: %{ point.fields | viewers: fields[:viewers] } }
-    point = %{ point | fields: %{ point.fields | average_fps: fields[:average_fps] } }
-
-    point = %{ point | tags: %{ point.tags | name: tags[:name] } }
-    %{ point | tags: %{ point.tags | game: tags[:game] } }
+  # The Twitch Rest API sometimes returns the average FPS as a float and sometimes as an integer.
+  # Because InfluxDB errors when trying to insert a float value into a measurement that contains integers already
+  # (or vice versa), we always cast the value to a float.
+  defp ensure_float(fields) do
+    Map.update!(fields, :average_fps, &(&1 / 1.0))
   end
 end

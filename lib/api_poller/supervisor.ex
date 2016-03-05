@@ -1,7 +1,6 @@
 defmodule KappaMetrics.ApiPoller.Supervisor do
   use Supervisor
 
-  alias KappaMetrics.Rest.Streams
   alias KappaMetrics.ApiPoller.PeriodicWorker
 
   def start_link() do
@@ -10,7 +9,7 @@ defmodule KappaMetrics.ApiPoller.Supervisor do
 
   def init(_) do
     children = [
-      worker(PeriodicWorker, [Streams])
+      worker(PeriodicWorker, [PeriodicWorker])
     ]
 
     supervise(children, strategy: :one_for_one)

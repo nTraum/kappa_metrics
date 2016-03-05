@@ -4,6 +4,8 @@ defmodule KappaMetrics.Rest.Streams do
   """
 
   use HTTPoison.Base
+  alias HTTPoison.Response
+  alias HTTPoison.Error
 
   @doc """
   Returns the full HTTP API URL for the given stream.
@@ -20,14 +22,18 @@ defmodule KappaMetrics.Rest.Streams do
     body
     |> Poison.decode!
     |> Map.get("stream")
-    |> add_online_status
   end
 
-  defp add_online_status(data) when is_nil(data) do
-    %{"online" => false}
-  end
-
-  defp add_online_status(data) when is_map(data) do
-    Map.put(data, "online", true)
+  def fetch(name) do
+    case get(name) do
+      {:ok, %Response{status_code: 200, body: nil}} ->
+        {:error, "Empty response for #{name}"}
+      {:ok, %Response{status_code: 200, body: body}} ->
+        {:ok, response: body, name: name}
+      {:ok, %Response{status_code: status_code}} ->
+        {:error, "Unexptected HTTP response code for #{name}, code: #{status_code}"}
+      {:error, %Error{reason: reason}} ->
+        {:error, "HTTP error for #{name}, reason: #{reason}"}
+    end
   end
 end
