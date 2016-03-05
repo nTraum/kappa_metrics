@@ -40,12 +40,12 @@ defmodule KappaMetrics.Mixfile do
   defp deps do
     [
       {:httpoison, "~> 0.8.0"},
-      {:instream,  "~> 0.9"},
+      {:instream,  "~> 0.10"},
       {:poison,    "~> 1.4.0"},
-      {:exrm,      "~> 1.0.0-rc8"},
+      {:exrm,      "~> 1.0.2"},
 
-      {:excoveralls, "~> 0.4", only: :test},
-      {:credo,       "~> 0.3", only: [:dev, :test]}
+      {:excoveralls, "~> 0.5", only: :test},
+      {:credo,       "~> 0.3.5", only: [:dev, :test]}
     ]
   end
 end

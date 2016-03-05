@@ -5,8 +5,8 @@ defmodule KappaMetrics.Series.Stream do
   alias KappaMetrics.InfluxDb
 
   series do
-    database    :kappa_metrics
-    measurement :streams
+    database    "kappa_metrics"
+    measurement "streams"
 
     field       :online
     field       :delay

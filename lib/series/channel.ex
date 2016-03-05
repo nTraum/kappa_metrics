@@ -5,8 +5,8 @@ defmodule KappaMetrics.Series.Channel do
   alias KappaMetrics.InfluxDb
 
   series do
-    database    :kappa_metrics
-    measurement :channels
+    database    "kappa_metrics"
+    measurement "channels"
 
     field       :followers
     field       :views
