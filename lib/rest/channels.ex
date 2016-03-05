@@ -31,7 +31,7 @@ defmodule KappaMetrics.Rest.Channels do
       {:ok, %Response{status_code: 200, body: body}} ->
         {:ok, response: body}
       {:ok, %Response{status_code: status_code}} ->
-        {:error, "Unexptected HTTP response code for #{name}, code: #{status_code}"}
+        {:error, "Unexpected HTTP response code for #{name}, code: #{status_code}"}
       {:error, %Error{reason: reason}} ->
         {:error, "HTTP error for #{name}, reason: #{reason}"}
     end
