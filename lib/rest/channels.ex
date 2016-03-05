@@ -26,8 +26,6 @@ defmodule KappaMetrics.Rest.Channels do
 
   def fetch(name) do
     case get(name) do
-      {:ok, %Response{status_code: 200, body: nil}} ->
-        {:error, "Empty response for #{name}"}
       {:ok, %Response{status_code: 200, body: body}} ->
         {:ok, response: body}
       {:ok, %Response{status_code: status_code}} ->
