@@ -34,6 +34,6 @@ defmodule KappaMetrics.Series.Stream do
   # Because InfluxDB errors when trying to insert a float value into a measurement that contains integers already
   # (or vice versa), we always cast the value to a float.
   defp ensure_float(fields) do
-    Map.update!(fields, :average_fps, &(&1 / 1.0))
+    Map.update!(fields, :average_fps, &(&1 / 1))
   end
 end
